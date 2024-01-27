@@ -4,7 +4,7 @@ from datetime import datetime
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    firebase_uuid = db.Column(db.String(100), unique=True, nullable=False)
+    firebase_uid = db.Column(db.String(100), unique=True, nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
     email = db.Column(db.String(120), unique=True, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
@@ -27,8 +27,8 @@ class User(db.Model):
         return new_user
 
     @classmethod
-    def delete_user(cls, firebase_uuid):
-        user = cls.query.filter_by(firebase_uuid=firebase_uuid).first()
+    def delete_user(cls, firebase_uid):
+        user = cls.query.filter_by(firebase_uid=firebase_uid).first()
         if user:
             db.session.delete(user)
             db.session.commit()
