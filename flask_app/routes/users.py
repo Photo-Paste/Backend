@@ -6,7 +6,6 @@ import uuid
 
 api = Namespace('users', description='User related operations')
 
-# Model for input (POST/PUT requests)
 user_model = api.model('User', {
     'name': fields.String(description='The user name'),
     'is_admin': fields.Boolean(description='Indicates if the user is an administrator', required=True),
