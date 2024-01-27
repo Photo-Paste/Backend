@@ -6,6 +6,7 @@ class User(db.Model):
     name = db.Column(db.String(100), nullable=False)
     firebase_uid = db.Column(db.String(100), unique=True, nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
+    records = db.relationship('Record', backref='user', lazy=True, cascade="all, delete-orphan")
     email = db.Column(db.String(120), unique=True, nullable=True)
     profile_image_url = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)

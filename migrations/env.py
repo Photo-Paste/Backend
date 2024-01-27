@@ -14,6 +14,9 @@ config = context.config
 fileConfig(config.config_file_name)
 logger = logging.getLogger('alembic.env')
 
+from flask_app.models.User import User
+from flask_app.models.Record import Record
+
 
 def get_engine():
     try:
@@ -38,6 +41,9 @@ def get_engine_url():
 # target_metadata = mymodel.Base.metadata
 config.set_main_option('sqlalchemy.url', get_engine_url())
 target_db = current_app.extensions['migrate'].db
+
+# Set the target metadata to include your models
+target_metadata = target_db.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
