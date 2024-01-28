@@ -24,19 +24,19 @@ class RecordsList(Resource):
         records = Record.query.all()
         return records
 
-@records_ns.route('/<string:firebase_uid>')
+@records_ns.route('/<string:email>')
 @records_ns.response(404, 'User not found')
 class UserRecordResource(Resource):
     @records_ns.marshal_with(record_get_model)
-    def get(self, firebase_uid):
-        user = User.query.filter_by(firebase_uid=firebase_uid).first_or_404()
+    def get(self, email):
+        user = User.query.filter_by(email=email).first_or_404()
         records = Record.query.filter_by(user_id=user.id).all()
         return records
     
     @records_ns.expect(record_post_model)
-    def post(self, firebase_uid):
+    def post(self, email):
         data = request.json
-        user = User.query.filter_by(firebase_uid=firebase_uid).first_or_404()
+        user = User.query.filter_by(email=email).first_or_404()
         data["user_id"] = user.id
         record = Record.create_record(data)
         return {'message': 'Record created successfully.', 'record': record.id}, 201

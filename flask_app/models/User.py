@@ -26,8 +26,8 @@ class User(db.Model):
         return new_user
 
     @classmethod
-    def delete_user(cls, firebase_uid):
-        user = cls.query.filter_by(firebase_uid=firebase_uid).first()
+    def delete_user(cls, email):
+        user = cls.query.filter_by(email=email).first()
         if user:
             db.session.delete(user)
             db.session.commit()
