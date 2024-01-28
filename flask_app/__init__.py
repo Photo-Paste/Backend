@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restx import Api
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 from .env import ENV_VARS
 from .routes.setup import init_api
 
@@ -17,6 +18,7 @@ def create_app():
 
     db.init_app(app)
     migrate.init_app(app, db)
+    CORS(app)
 
     with app.app_context():
         init_api(api)
