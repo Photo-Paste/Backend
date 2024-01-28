@@ -7,7 +7,6 @@ users_ns = Namespace('users', description='User related operations')
 
 user_get_model = users_ns.model('User', {
     'name': fields.String(description='The user name'),
-    'firebase_uid': fields.String(description='The firebase_uid'),
     'is_admin': fields.Boolean(description='Indicates if the user is an administrator', required=True),
     'email': fields.String(description='The email of the user'),
     'profile_image_url': fields.String(description='URL of the user\'s profile image'),
